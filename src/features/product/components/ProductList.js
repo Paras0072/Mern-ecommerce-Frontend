@@ -22,7 +22,7 @@ import {
 import { Link } from "react-router-dom";
 import { fetchAllProducts } from "../ProductAPI";
 const sortOptions = [
-  { name: "Best Rating", sort: "rating",  order: "desc", current: false },
+  { name: "Best Rating", sort: "rating", order: "desc", current: false },
 
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
   { name: "Price: High to Low", sort: "price", order: "desc", current: false },
@@ -102,29 +102,35 @@ export default function ProductList() {
   const dispatch = useDispatch();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector(selectAllProducts);
-  const [filter,setFilter] = useState({});
-  const handleFilter =(e,section,option)=>{
-   const newFilter = { ...filter, [section.id]: option.value };
-   setFilter(newFilter);
+  const [filter, setFilter] = useState({});
+    const [sort, setSort] = useState({});
+  const handleFilter = (e, section, option) => {
+    const newFilter = { ...filter };
+    if (e.target.checked) {
+      if (newFilter[section.id]){
+       newFilter[section.id].push(option.value);}
+       else{
+        newFilter[section.id]=[option.value] 
+       }
+    } else {
+      const index =  newFilter[section.id].findIndex(el=>el===option.value);
+      newFilter[section.id].splice(index, 1);
+    }
+     console.log(section.id, option.value);
+    setFilter(newFilter);
 
-    dispatch(fetchProductsByFiltersAsync(newFilter));
- 
-    console.log(section.id,option.value)
    
-
-  }
- const handleSort = (e,option) => {
-   const newFilter = { ...filter, _sort:option.sort,_order:option.order};
-   setFilter(newFilter);
-
-   dispatch(fetchProductsByFiltersAsync(newFilter));
+  };
+  const handleSort = (e, option) => {
+    const sort = { _sort: option.sort, _order: option.order };
+    setSort(sort);
 
 
- };
+  };
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync());
-  }, [dispatch]);
+    dispatch(fetchProductsByFiltersAsync({filter,sort}));
+  }, [dispatch, filter,sort]);
   return (
     <div>
       <div>
@@ -224,9 +230,8 @@ export default function ProductList() {
                 </div>
               </section>
               {/* {Product and filter ends here} */}
-            
-                <Pagination></Pagination>
-             
+
+              <Pagination></Pagination>
             </main>
           </div>
         </div>
@@ -356,9 +361,7 @@ function MobileFilter({
   );
 }
 
-
-
-function DesktopFilter( {handleFilter}){
+function DesktopFilter({ handleFilter }) {
   return (
     <div>
       {" "}
@@ -418,7 +421,7 @@ function DesktopFilter( {handleFilter}){
   );
 }
 
-function Pagination( ){
+function Pagination() {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -492,7 +495,7 @@ function Pagination( ){
     </div>
   );
 }
-function ProductGrid({products} ){
+function ProductGrid({ products }) {
   return (
     <div>
       {" "}
