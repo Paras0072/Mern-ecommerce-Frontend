@@ -48,7 +48,9 @@
       "brand": "Samsung",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
+      "images": [
+        "https://i.dummyjson.com/data/products/3/1.jpg"
+      ]
     },
     {
       "id": 4,
@@ -551,9 +553,7 @@
       ]
     }
   ],
-  
-  
-  "brands" :  [
+  "brands": [
     {
       "value": "Apple",
       "label": "Apple",
@@ -690,7 +690,7 @@
       "checked": false
     }
   ],
-  "categories" : [
+  "categories": [
     {
       "value": "smartphones",
       "label": "smartphones",
@@ -720,6 +720,28 @@
       "value": "home-decoration",
       "label": "homedecoration",
       "checked": false
+    }
+  ],
+  "users": [
+    {
+      "email": "qw@gmail.com",
+      "password": "Qwertyuiop@123",
+      "id": 1
+    },
+    {
+      "email": "parasthakur007241@gmail.com",
+      "password": "Qwertyuiop@123",
+      "id": 2
+    },
+    {
+      "email": "demon@gmail.com",
+      "password": "Demon123",
+      "id": 3
+    },
+    {
+      "email": "demon@gmail.com",
+      "password": "Demon123",
+      "id": 4
     }
   ]
 }
