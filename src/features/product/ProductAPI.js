@@ -38,3 +38,20 @@ for (let key in pagination) {
     resolve({ data:{products:data,totalItems:+totalItems} });
   });
 }
+
+export function fetchCategories() {
+  //Todo : we will not hardcore server url here
+  return new Promise(async (resolve) => {
+    const response = await fetch(" http://localhost:8080/categories");
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+export function fetchBrands() {
+  //Todo : we will not hardcore server url here
+  return new Promise(async (resolve) => {
+    const response = await fetch(" http://localhost:8080/brands");
+    const data = await response.json();
+    resolve({ data });
+  });
+}
