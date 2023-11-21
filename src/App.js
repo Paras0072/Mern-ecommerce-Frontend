@@ -23,6 +23,9 @@ import ProductDetail from "./features/product/components/ProductDetails";
 import PageNotFound from "./pages/404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 
+import UserProfilePage from "./pages/UserProfilePage";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -74,6 +77,11 @@ const router = createBrowserRouter([
     // we will add page later on
   },
   {
+    path: "/profile",
+    element: <UserProfilePage></UserProfilePage>,
+    // we will add page later on
+  },
+  {
     path: "*",
     element: <PageNotFound></PageNotFound>,
   },
@@ -85,6 +93,7 @@ function App() {
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch(fetchLoggedInUserAsync(user.id))
     }
   }, [dispatch, user]);
   return (

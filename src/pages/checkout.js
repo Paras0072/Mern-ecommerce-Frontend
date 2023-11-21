@@ -8,11 +8,12 @@ import {
   deleteItemFromCartAsync,
 } from "../features/cart/cartSlice";
 import {
-  selectLoggedInUser,
+  
   updateUserAsync,
 } from "../features/auth/authSlice";
 import { createOrderAsync } from "../features/order/orderSlice";
 import { selectCurrentOrder } from "../features/order/orderSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
 function Checkout() {
   const [open, setOpen] = useState(true);
@@ -26,7 +27,7 @@ function Checkout() {
   } = useForm();
 
   const items = useSelector(selectItems);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
   const totalAmount = items.reduce(
     (amount, item) => item.price * item.quantity + amount,

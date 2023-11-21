@@ -30,15 +30,3 @@ export function checkUser(loginInfo) {
  
   });
 }
-export function updateUser(update) {
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/users/" +update.id, {
-      method: "PATCH",
-      body: JSON.stringify(update),
-      headers: { "content-Type": "application/json" },
-    });
-    const data = await response.json();
-    //todo : one server it will return only relevant information
-    resolve({ data });
-  });
-}
