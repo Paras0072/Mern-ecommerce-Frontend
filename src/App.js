@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
 import UserOrdersPage from "./pages/UserOrdersPage";
+import Logout from "./features/auth/components/Logout";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -25,6 +26,7 @@ import OrderSuccessPage from "./pages/OrderSuccessPage";
 
 import UserProfilePage from "./pages/UserProfilePage";
 import { fetchLoggedInUserAsync } from "./features/user/userSlice";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,16 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <UserProfilePage></UserProfilePage>,
+    // we will add page later on
+  },
+  {
+    path: "/logout",
+    element: <Logout></Logout>,
+    // we will add page later on
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage></ForgotPasswordPage>,
     // we will add page later on
   },
   {
