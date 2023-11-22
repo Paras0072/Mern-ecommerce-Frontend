@@ -4,7 +4,7 @@ import { updateUser } from "../user/userAPI";
 const initialState = {
   loggedInUser: null,
   status: "idle",
-  error:null,
+  error: null,
 };
 
 export const createUserAsync = createAsyncThunk(
@@ -24,11 +24,14 @@ export const checkUserAsync = createAsyncThunk(
     return response.data;
   }
 );
-export const signOutAsync = createAsyncThunk("user/signOut", async (loginInfo) => {
-  const response = await signOut(loginInfo);
-  // The value we return becomes the `fulfilled` action payload
-  return response.data;
-});
+export const signOutAsync = createAsyncThunk(
+  "user/signOut",
+  async (loginInfo) => {
+    const response = await signOut(loginInfo);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
 export const updateUserAsync = createAsyncThunk(
   "user/updateUser",
   async (update) => {
@@ -37,7 +40,7 @@ export const updateUserAsync = createAsyncThunk(
     return response.data;
   }
 );
-export const counterSlice = createSlice({
+export const authSlice = createSlice({
   name: "user",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
@@ -87,6 +90,6 @@ export const counterSlice = createSlice({
 
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectError = (state) => state.auth.error;
-export const { increment } = counterSlice.actions;
+export const { increment } = authSlice.actions;
 
-export default counterSlice.reducer;
+export default authSlice.reducer;
