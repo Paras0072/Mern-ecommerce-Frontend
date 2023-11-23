@@ -4,9 +4,9 @@
       "id": 1,
       "title": "iPhone 9",
       "description": "An apple mobile which is nothing like apple",
-      "price": 549,
+      "price": 900,
       "discountPercentage": 12.96,
-      "rating": 4.69,
+      "rating": 0,
       "stock": 94,
       "brand": "Apple",
       "category": "smartphones",
@@ -14,18 +14,17 @@
       "images": [
         "https://i.dummyjson.com/data/products/1/1.jpg",
         "https://i.dummyjson.com/data/products/1/2.jpg",
-        "https://i.dummyjson.com/data/products/1/3.jpg",
-        "https://i.dummyjson.com/data/products/1/4.jpg",
-        "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-      ]
+        "https://i.dummyjson.com/data/products/1/3.jpg"
+      ],
+      "deleted": true
     },
     {
       "id": 2,
       "title": "iPhone X",
       "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
+      "price": 900,
       "discountPercentage": 17.94,
-      "rating": 4.44,
+      "rating": 0,
       "stock": 34,
       "brand": "Apple",
       "category": "smartphones",
@@ -33,8 +32,7 @@
       "images": [
         "https://i.dummyjson.com/data/products/2/1.jpg",
         "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+        "https://i.dummyjson.com/data/products/2/3.jpg"
       ]
     },
     {
@@ -551,6 +549,32 @@
         "https://i.dummyjson.com/data/products/30/3.jpg",
         "https://i.dummyjson.com/data/products/30/thumbnail.jpg"
       ]
+    },
+    {
+      "id": 31
+    },
+    {
+      "id": 32
+    },
+    {
+      "id": 33
+    },
+    {
+      "title": "hillo1",
+      "description": "hillo1",
+      "brand": "Apple",
+      "category": "smartphones",
+      "price": "12",
+      "discountPercentage": "12",
+      "stock": "12",
+      "thumbnail": "https://i.dummyjson.com/data/products/1/1.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/1/1.jpg",
+        "https://i.dummyjson.com/data/products/1/1.jpg",
+        "https://i.dummyjson.com/data/products/1/1.jpg"
+      ],
+      "rating": 0,
+      "id": 34
     }
   ],
   "brands": [
@@ -726,6 +750,7 @@
     {
       "email": "demon@gmail.com",
       "password": "Demon123",
+      "role": "user",
       "addresses": [
         {
           "name": "Paras",
@@ -756,6 +781,41 @@
         }
       ],
       "id": 1
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Admin123",
+      "addresses": [],
+      "role": "admin",
+      "id": 2
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Admin123",
+      "addresses": [],
+      "role": "user",
+      "id": 3
+    },
+    {
+      "email": "Paras@gmail.com",
+      "password": "Paras123",
+      "addresses": [],
+      "role": "user",
+      "id": 4
+    },
+    {
+      "email": "qw@gmail.com",
+      "password": "Qwert1234",
+      "addresses": [],
+      "role": "user",
+      "id": 5
+    },
+    {
+      "email": "kt@gmail.com",
+      "password": "Qwert1234",
+      "addresses": [],
+      "role": "user",
+      "id": 6
     }
   ],
   "cart": [
@@ -1029,6 +1089,7 @@
       "user": {
         "email": "demon@gmail.com",
         "password": "Demon123",
+        "role": "user",
         "addresses": [
           {
             "name": "Paras",

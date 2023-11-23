@@ -38,7 +38,14 @@ export function Signup() {
             onSubmit={handleSubmit((data) => {
               console.log(data);
               dispatch(
-                createUserAsync({ email: data.email, password: data.password ,addresses:[]})
+                createUserAsync({ 
+                  email: data.email, 
+                  password: data.password ,
+                  addresses:[],
+                  role:'user'
+
+                
+                })
               );
             })}
           >
