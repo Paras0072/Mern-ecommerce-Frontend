@@ -14,6 +14,8 @@ import { useState, useEffect } from "react";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import Logout from "./features/auth/components/Logout";
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,6 +36,12 @@ import ProductForm from "./features/admin/components/AdminProductForm";
 import AdminProductFormPage from "./pages/AdminProductFormPage";
 import AdminOrders from "./pages/AdminOrdersPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_LEFT,
+};
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -156,7 +164,9 @@ function App() {
   }, [dispatch, user]);
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <Provider template={AlertTemplate} {...options}>
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }

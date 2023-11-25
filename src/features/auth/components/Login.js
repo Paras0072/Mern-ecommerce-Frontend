@@ -18,12 +18,12 @@ export function Login() {
 
   return (
     <>
-    {user && <Navigate to="/" replace={true}></Navigate>}
+      {user && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src="/ecommerce.png"
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -40,9 +40,8 @@ export function Login() {
               dispatch(
                 checkUserAsync({ email: data.email, password: data.password })
               );
-             
             })}
-         action="#"
+            action="#"
             method="POST"
           >
             <div>
@@ -53,7 +52,6 @@ export function Login() {
                 Email address
               </label>
               <div className="mt-2">
-             
                 <input
                   id="email"
                   {...register("email", {
@@ -83,7 +81,7 @@ export function Login() {
                 </label>
                 <div className="text-sm">
                   <Link
-                   to="/forgot-password"
+                    to="/forgot-password"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
@@ -111,9 +109,7 @@ export function Login() {
                   <p className="text-red-500">{errors.password.message} </p>
                 )}
               </div>
-              {error && (
-                <p className="text-red-500">{error.message} </p>
-              )}
+              {error && <p className="text-red-500">{error.message} </p>}
             </div>
 
             <div>
