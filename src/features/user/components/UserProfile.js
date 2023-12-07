@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 export function UserProfile() {
 
   const dispatch = useDispatch();
- const user = useSelector(selectUserInfo)
+ const userInfo = useSelector(selectUserInfo)
  const [selectedEditIndex,setselectedEditIndex]=useState(-1); 
  const [showAddAddressForm, setShowAddAddressForm] = useState(false); 
    const {
@@ -19,7 +19,7 @@ export function UserProfile() {
   } = useForm();
  const handleEdit =(addressUpdate,index)=>{
 
- const newUser = { ...user, addresses: [...user.addresses] }; // shallow copy issue
+ const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // shallow copy issue
  newUser.addresses.splice(index, 1,addressUpdate());
  dispatch(updateUserAsync(newUser));
  setselectedEditIndex(-1);
@@ -27,7 +27,7 @@ export function UserProfile() {
 
  }
   const handleRemove = (e,index) => {
- const newUser ={...user ,addresses:[...user.addresses]} // shallow copy issue
+ const newUser ={...userInfo ,addresses:[...userInfo.addresses]} // shallow copy issue
  newUser.addresses.splice(index,1);
  dispatch(updateUserAsync(newUser));
 
@@ -35,7 +35,7 @@ export function UserProfile() {
   };
     const handleEditForm = ( index) => {
       setselectedEditIndex(index);
-      const address =user.addresses[index]
+      const address =userInfo.addresses[index]
       setValue('name',address.name)
        setValue("email", address.email);
         setValue("phone", address.phone);
@@ -45,7 +45,7 @@ export function UserProfile() {
            setValue("pinCode", address.pinCode);
     };
     const handleAdd=(address)=>{
- const newUser = { ...user, addresses: [...user.addresses,address] }; // shallow copy issue
+ const newUser = { ...userInfo, addresses: [...userInfo.addresses,address] }; // shallow copy issue
 
  dispatch(updateUserAsync(newUser));
 setShowAddAddressForm(false)
@@ -55,13 +55,13 @@ setShowAddAddressForm(false)
       <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
-            Name : {user.name ? user.name : "New User"}
+            Name : {userInfo.name ? userInfo.name : "New User"}
           </h1>
           <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
-            Email Address : {user.email}
+            Email Address : {userInfo.email}
           </h3>
-          {user.role==='admin' && <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
-           role: {user.role}
+          {userInfo.role==='admin' && <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
+           role: {userInfo.role}
           </h3>}
         </div>
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -370,7 +370,7 @@ setShowAddAddressForm(false)
             </form>
           ) : null}
           <p className="mt-0.5 text-sm text-gray-500">Your Address :</p>
-          {user.addresses.map((address, index) => (
+          {userInfo.addresses.map((address, index) => (
             <div>
               {selectedEditIndex === index ? (
                 <form

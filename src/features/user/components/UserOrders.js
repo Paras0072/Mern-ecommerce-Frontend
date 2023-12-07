@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from "../userSlice";
+import {
+  fetchLoggedInUserOrderAsync,
+  selectUserInfo,
+  selectUserOrders,
+} from "../userSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
 import { useEffect } from "react";
 import { discountedPrice } from "../../../app/constants";
 
 export function UserOrders() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUserInfo);
+  const userInfo = useSelector(selectUserInfo);
   const order = useSelector(selectUserOrders);
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrderAsync(user.id));
-  });
+    dispatch(fetchLoggedInUserOrderAsync(userInfo.id));
+  }, [dispatch, userInfo]);
   return (
     <div>
       {order.map((order) => (
@@ -30,8 +34,8 @@ export function UserOrders() {
                     <li key={item.id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
-                          src={item.thumbnail}
-                          alt={item.title}
+                          src={item.product.thumbnail}
+                          alt={item.product.title}
                           className="h-full w-full object-cover object-center"
                         />
                       </div>
@@ -40,12 +44,14 @@ export function UserOrders() {
                         <div>
                           <div className="flex justify-between text-base font-medium text-gray-900">
                             <h3>
-                              <a href={item.href}>{item.title}</a>
+                              <a href={item.product.id}>{item.product.title}</a>
                             </h3>
-                            <p className="ml-4">${discountedPrice(item)}</p>
+                            <p className="ml-4">
+                              ${discountedPrice(item.product)}
+                            </p>
                           </div>
                           <p className="mt-1 text-sm text-gray-500">
-                            {item.brand}
+                            {item.product.brand}
                           </p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
@@ -75,9 +81,7 @@ export function UserOrders() {
                 <p> Total Items in Cart</p>
                 <p>{order.totalItems} items</p>
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">
-               Shipping Address : 
-              </p>
+              <p className="mt-0.5 text-sm text-gray-500">Shipping Address :</p>
               <div className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
                 <div className="flex min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto">
