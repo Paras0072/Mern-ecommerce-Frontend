@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../../common/Modal";
+import { useAlert } from "react-alert";
+const alert = useAlert();
 function AdminProductForm() {
    const {
      register,
@@ -72,9 +74,11 @@ function AdminProductForm() {
             product.id = params.id;
             product.rating = selectedProduct.rating || 0;
             dispatch(updateProductAsync(product));
+            alert.success('Product Updated Successfully')
             reset();
           } else {
             dispatch(createProductAsync(product));
+              alert.success("Product Created");
             reset();
           }
         })}
@@ -86,11 +90,11 @@ function AdminProductForm() {
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-               {/* {selectedProduct.deleted && (
+               {selectedProduct && selectedProduct.deleted && (
                 <h2 className="text-red-500 sm:col-span-6">
                   This product is deleted
                 </h2>
-              )} */}
+              )}
               <div className="sm:col-span-4">
                 <label
                   htmlFor="title"
@@ -430,9 +434,9 @@ function AdminProductForm() {
           </button>
         </div>
       </form>
-      <Modal
-        //title={`Delete ${selectedProduct.title}`}
-        title="Delete the Product"
+     {selectedProduct &&  <Modal
+        title={`Delete ${selectedProduct.title}`}
+        // title="Delete the Product"
         message="Are you sure you want to delete this Product ? "
         dangerOption="Delete"
         cancelOption="Cancel"
@@ -440,6 +444,7 @@ function AdminProductForm() {
         cancelAction={() => setOpenModal(null)}
         showModal={openModal}
       ></Modal>
+     }
     </>
   );
 }
