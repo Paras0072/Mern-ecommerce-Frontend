@@ -8,7 +8,7 @@ import CartPage from "./pages/CartPage";
 import Checkout from "./pages/checkout";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Protected from "./features/auth/components/protected";
-import { selectLoggedInUser } from "./features/auth/authSlice";
+import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from "./features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
@@ -153,8 +153,13 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const userChecked = useSelector(selectUserChecked)
+useEffect(()=>{
+ dispatch(checkAuthAsync());
 
+},[dispatch])
   useEffect(() => {
+   
     if (user) {
       dispatch(fetchItemsByUserIdAsync());
       // we can get req.user by token on  backend so no need to give in front-end
@@ -163,9 +168,9 @@ function App() {
   }, [dispatch, user]);
   return (
     <div className="App">
-      <Provider template={AlertTemplate} {...options}>
+      {userChecked && <Provider template={AlertTemplate} {...options}>
         <RouterProvider router={router} />
-      </Provider>
+      </Provider>}
     </div>
   );
 }

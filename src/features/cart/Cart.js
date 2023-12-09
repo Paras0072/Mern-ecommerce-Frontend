@@ -5,6 +5,7 @@ import {
   updateCartAsync,
   deleteItemFromCartAsync,
   selectCartStatus,
+  selectCartLoaded,
 } from "./cartSlice";
 import { Navigate } from "react-router-dom";
 
@@ -16,6 +17,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
+  const cartLoaded =useSelector(selectCartLoaded)
   const [openModal,setOpenModal] = useState(null);
   const totalAmount = items.reduce(
     (amount, item) => discountedPrice(item.product) * item.quantity + amount,
@@ -32,7 +34,7 @@ export default function Cart() {
   return (
     <>
       {" "}
-      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {!items.length && cartLoaded && <Navigate to="/" replace={true}></Navigate>}
       <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
