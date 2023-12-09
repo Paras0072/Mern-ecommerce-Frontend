@@ -10,7 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import Protected from "./features/auth/components/protected";
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import Logout from "./features/auth/components/Logout";
@@ -19,10 +19,9 @@ import AlertTemplate from "react-alert-template-basic";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
+ 
 } from "react-router-dom";
-import ProductDetail from "./features/product/components/ProductDetails";
+
 import PageNotFound from "./pages/404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 
@@ -32,15 +31,14 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import AdminHome from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage ";
 import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
-import ProductForm from "./features/admin/components/AdminProductForm";
+
 import AdminProductFormPage from "./pages/AdminProductFormPage";
-import AdminOrders from "./pages/AdminOrdersPage";
+
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 const options = {
   timeout: 5000,
   position: positions.BOTTOM_LEFT,
 };
-
 
 const router = createBrowserRouter([
   {
@@ -158,8 +156,9 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      dispatch(fetchItemsByUserIdAsync(user.id));
-      dispatch(fetchLoggedInUserAsync(user.id));
+      dispatch(fetchItemsByUserIdAsync());
+      // we can get req.user by token on  backend so no need to give in front-end
+      dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
   return (

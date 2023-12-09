@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
@@ -58,7 +59,7 @@ useEffect(() => {
   const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
 
   dispatch(fetchAllOrdersAsync({ sort, pagination }));
-}, [dispatch]);
+}, [dispatch,sort]);
 
     return (
       <div className="overflow-x-auto">

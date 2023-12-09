@@ -7,8 +7,7 @@ import {
   selectCartStatus,
 } from "./cartSlice";
 import { Navigate } from "react-router-dom";
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+
 import { Link } from "react-router-dom";
 import { discountedPrice } from "../../app/constants";
 import { Grid } from "react-loader-spinner";
@@ -106,7 +105,7 @@ export default function Cart() {
                           showModal={openModal === item.id}
                         ></Modal>
                         <button
-                          onClick={(e) => {
+                          onClick={() => {
                             setOpenModal(item.id);
                           }}
                           type="button"

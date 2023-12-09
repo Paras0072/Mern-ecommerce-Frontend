@@ -1,26 +1,27 @@
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSelectedProduct, createProductAsync, fetchProductByIdAsync, selectBrands, selectCategories, selectProductById, updateProductAsync } from "../../product/ProductSlice";
-import { checkUserAsync } from "../../auth/authSlice";
+
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../../common/Modal";
 import { useAlert } from "react-alert";
-const alert = useAlert();
+
 function AdminProductForm() {
    const {
      register,
      handleSubmit,
      setValue,
      reset,
-     formState: { errors },
+    // formState: { errors },
    } = useForm();
   const brands =useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const dispatch =useDispatch();
   const params =useParams();
  const selectedProduct = useSelector(selectProductById);
+ const alert = useAlert();
   useEffect(()=>{
 
      if(params.id){

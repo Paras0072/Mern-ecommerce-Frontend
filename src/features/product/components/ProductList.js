@@ -28,7 +28,7 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { fetchAllProducts } from "../ProductAPI";
+
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -102,7 +102,7 @@ export default function ProductList() {
   useEffect(() => {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoriesAsync());
-  }, []);
+  }, [dispatch]);
   return (
     <div>
       <div>
