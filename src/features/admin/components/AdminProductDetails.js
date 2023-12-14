@@ -1,4 +1,4 @@
-import {React} from "react";
+
 import { useState, useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
@@ -11,7 +11,7 @@ import {
 import { useParams } from "react-router-dom";
 import { addToCartAsync } from "../../cart/cartSlice";
 
-import { discountedPrice } from "../../../app/constants";
+
 // todo : in server we will ad colors and size etc
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -148,7 +148,7 @@ export default function AdminProductDetail() {
                   ${product.price}
                 </p>
                 <p className="text-3xl tracking-tight text-gray-900">
-                  ${discountedPrice(product)}
+                  ${product.discountPrice}
                 </p>
                 {/* Reviews */}
                 <div className="mt-6">

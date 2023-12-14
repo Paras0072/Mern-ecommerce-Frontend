@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+
 import { useEffect } from "react";
 import { useState } from "react";
-import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
+import { ITEMS_PER_PAGE} from "../../../app/constants";
 import { PencilIcon,EyeIcon,ArrowDownIcon,ArrowUpIcon } from "@heroicons/react/24/outline";
 import { fetchAllOrdersAsync,selectOrders,selectTotalOrders, updatOrderAsync } from "../../order/orderSlice";
 import Pagination from "../../common/Pagination";
@@ -59,7 +59,7 @@ useEffect(() => {
   const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
 
   dispatch(fetchAllOrdersAsync({ sort, pagination }));
-}, [dispatch,sort]);
+}, [dispatch,sort,page]);
 
     return (
       <div className="overflow-x-auto">
@@ -111,7 +111,10 @@ useEffect(() => {
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
                   {orders.map((order) => (
-                    <tr className="border-b border-gray-200 hover:bg-gray-100">
+                    <tr
+                      key={order.id}
+                      className="border-b border-gray-200 hover:bg-gray-100"
+                    >
                       <td className="py-3 px-6 text-left whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="mr-2"></div>
@@ -119,8 +122,8 @@ useEffect(() => {
                         </div>
                       </td>
                       <td className="py-3 px-6 text-left">
-                        {order.items.map((item) => (
-                          <div className="flex items-center">
+                        {order.items.map((item,index) => (
+                          <div key={index}  className="flex items-center">
                             <div className="mr-2">
                               <img
                                 className="w-6 h-6 rounded-full"
@@ -129,8 +132,8 @@ useEffect(() => {
                               />
                             </div>
                             <span>
-                              {item.product.title} - #{item.quantity} -
-                              ${discountedPrice(item.product)}
+                              {item.product.title} - #{item.quantity} - $
+                              {item.product.discountPrice}
                             </span>
                           </div>
                         ))}

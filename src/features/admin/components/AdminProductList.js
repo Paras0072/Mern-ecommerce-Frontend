@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchAllProductsAsync,
+
   selectAllProducts,
   fetchProductsByFiltersAsync,
   selectTotalItems,
@@ -26,7 +26,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
-import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
 
@@ -457,6 +457,7 @@ function Pagination({ page, setPage, handlePage, totalItems }) {
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
             {Array.from({ length: totalpages }).map((el, index) => (
               <div
+                key={index}
                 onClick={(e) => handlePage(index + 1)}
                 aria-current="page"
                 className={`relative cursor-pointer z-10 inline-flex items-center
@@ -528,7 +529,7 @@ function ProductGrid({ products }) {
                         {" "}
                         <p className="text-sm block font-medium text-gray-900">
                           $
-                         {discountedPrice(product)}
+                         {product.discountPrice}
                         </p>
                         <p className="text-sm block line-through font-medium text-gray-400">
                           ${product.price}

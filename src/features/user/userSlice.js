@@ -36,9 +36,7 @@ export const userSLice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
+   
   },
  
   extraReducers: (builder) => {
@@ -69,10 +67,10 @@ export const userSLice = createSlice({
 export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;
 export const selectUserInfoStatus = (state) => state.user.status;
-export const { increment } = userSLice.actions;
 
 
-export const selectOrders = (state) => state.user.userOrders;
+
+//export const selectOrders = (state) => state.user.userOrders;
 
 
 

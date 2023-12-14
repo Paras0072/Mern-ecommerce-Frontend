@@ -14,8 +14,8 @@ import {
 import { createOrderAsync } from "../features/order/orderSlice";
 import { selectCurrentOrder } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
-import { discountedPrice } from "../app/constants";
 
+import { Grid } from 'react-loader-spinner';
 function Checkout() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function Checkout() {
     register,
     handleSubmit,
     reset,
-    watch,
+   
     formState: { errors },
   } = useForm();
 
@@ -31,15 +31,17 @@ function Checkout() {
   const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
   const totalAmount = items.reduce(
-    (amount, item) => discountedPrice(item.product) * item.quantity + amount,
+    (amount, item) =>
+      item.product.discountPrice * item.quantity + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
+
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ id:id.item, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
   };
   const handleRemove = (e, id) => {
     dispatch(deleteItemFromCartAsync(id));
@@ -85,7 +87,8 @@ function Checkout() {
       )}
       {currentOrder && currentOrder.paymentMethod === "card" && (
         <Navigate
-          to={`/stripe-checkout/`}
+          // to={`/stripe-checkout/`}
+          to={`/order-success/${currentOrder.id}`}
           replace={true}
         ></Navigate>
       )}
@@ -423,7 +426,7 @@ function Checkout() {
                                 </a>
                               </h3>
                               <p className="ml-4">
-                                ${discountedPrice(item.product)}
+                                ${item.product.discountPrice}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
@@ -509,5 +512,6 @@ function Checkout() {
     </>
   );
 }
+
 
 export default Checkout;

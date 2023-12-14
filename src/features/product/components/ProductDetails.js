@@ -25,14 +25,12 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "../ProductSlice";
-import { fetchProductById } from "../ProductAPI";
+
 import { selectProductListStatus } from "../ProductSlice";
 import { Grid } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import { addToCartAsync, selectItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
-import { Link } from "react-router-dom";
-import { discountedPrice } from "../../../app/constants";
+
 // todo : in server we will ad colors and size etc
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -189,7 +187,7 @@ export default function ProductDetail() {
                 ${product.price}
               </p>
               <p className="text-3xl tracking-tight text-gray-900">
-                ${discountedPrice(product)}
+                ${product.discountPrice}
               </p>
 
               {/* Reviews */}

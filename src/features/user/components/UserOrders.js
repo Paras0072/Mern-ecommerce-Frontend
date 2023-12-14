@@ -1,20 +1,18 @@
 
-import { useSelector, useDispatch } from "react-redux";
+import  { useSelector, useDispatch } from "react-redux";
 import {
   fetchLoggedInUserOrderAsync,
- 
+  selectUserInfo,
   selectUserInfoStatus,
- 
   selectUserOrders,
 } from "../userSlice";
 
-import { useEffect } from "react";
-import { discountedPrice } from "../../../app/constants";
+import React,{ useEffect } from "react";
+
 import { Grid } from "react-loader-spinner";
 
 export function UserOrders() {
   const dispatch = useDispatch();
-
   const orders = useSelector(selectUserOrders);
   const status = useSelector(selectUserInfoStatus)
   useEffect(() => {
@@ -54,7 +52,7 @@ export function UserOrders() {
                                 </a>
                               </h3>
                               <p className="ml-4">
-                                ${discountedPrice(item.product)}
+                                ${item.product.discountPrice}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
