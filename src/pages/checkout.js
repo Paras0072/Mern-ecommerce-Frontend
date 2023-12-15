@@ -87,8 +87,8 @@ function Checkout() {
       )}
       {currentOrder && currentOrder.paymentMethod === "card" && (
         <Navigate
-          // to={`/stripe-checkout/`}
-          to={`/order-success/${currentOrder.id}`}
+           to={`/stripe-checkout/`}
+         
           replace={true}
         ></Navigate>
       )}

@@ -35,6 +35,8 @@ import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminProductFormPage from "./pages/AdminProductFormPage";
 
 import AdminOrdersPage from "./pages/AdminOrdersPage";
+import StripeCheckout from "./pages/StripeCheckout";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 const options = {
   timeout: 5000,
@@ -140,15 +142,15 @@ const router = createBrowserRouter([
     ),
     // we will add page later on
   },
-  // {
-  //   path: "/stripe-checkout/",
-  //   element: (
-  //     <Protected>
-  //       <StripeCheckout></StripeCheckout>
-  //     </Protected>
-  //   ),
-  //   // we will add page later on
-  // },
+  {
+    path: "/stripe-checkout/",
+    element: (
+      <Protected>
+        <StripeCheckout></StripeCheckout>
+      </Protected>
+    ),
+    // we will add page later on
+  },
   {
     path: "/logout",
     element: <Logout></Logout>,
@@ -157,6 +159,11 @@ const router = createBrowserRouter([
   {
     path: "/forgot-password",
     element: <ForgotPasswordPage></ForgotPasswordPage>,
+    // we will add page later on
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPasswordPage></ResetPasswordPage>,
     // we will add page later on
   },
 
