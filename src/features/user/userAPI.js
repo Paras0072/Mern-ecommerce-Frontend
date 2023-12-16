@@ -21,7 +21,7 @@ export function updateUser(update) {
       headers: { "content-Type": "application/json" },
     });
     const data = await response.json();
-    //todo : one server it will return only relevant information
+   
     resolve({ data });
   });
 }

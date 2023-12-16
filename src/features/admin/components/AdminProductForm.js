@@ -29,6 +29,7 @@ function AdminProductForm() {
   const dispatch = useDispatch();
   const params = useParams();
   const selectedProduct = useSelector(selectProductById);
+ 
   const alert = useAlert();
   const colors = [
     {
@@ -113,8 +114,10 @@ function AdminProductForm() {
             product.highlight4,
           ];
           product.rating = 0;
-          product.colors = product.colors.map(color => colors.find((clr) => clr.id === color));
-          product.sizes = product.sizes.map(size =>
+          product.colors = product.colors.map((color) =>
+            colors.find((clr) => clr.id === color)
+          );
+          product.sizes = product.sizes.map((size) =>
             sizes.find((sz) => sz.id === size)
           );
           delete product["image1"];

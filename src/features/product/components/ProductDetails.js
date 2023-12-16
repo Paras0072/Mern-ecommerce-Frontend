@@ -32,12 +32,6 @@ import { useParams } from "react-router-dom";
 import { addToCartAsync, selectItems } from "../../cart/cartSlice";
 
 
-const highlights = [
-  "Hand cut and sewn locally",
-  "Dyed with our proprietary colors",
-  "Pre-washed & pre-shrunk",
-  "Ultra-soft 100% cotton",
-];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -62,8 +56,8 @@ export default function ProductDetail() {
        if (selectedSize) {
          newItem.size = selectedSize;
        }
-      dispatch(addToCartAsync(newItem));
-      alert.success("Item already to Cart");
+      dispatch(addToCartAsync({item:newItem,alert}));
+      
     } else {
       alert.error("Item already added");
     }

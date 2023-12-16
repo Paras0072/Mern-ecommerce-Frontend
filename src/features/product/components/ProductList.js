@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../../common/Pagination";
-import { selectProductListStatus } from "../ProductSlice";
+import { selectProductListStatus, selectStatus } from "../ProductSlice";
 import { Grid } from "react-loader-spinner";
 import {
   fetchAllProductsAsync,
@@ -33,8 +33,8 @@ import { ITEMS_PER_PAGE} from "../../../app/constants";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
 
-  { name: "Price: Low to High", sort: "price", order: "asc", current: false },
-  { name: "Price: High to Low", sort: "price", order: "desc", current: false },
+  { name: "Price: Low to High", sort: "discountPrice", order: "asc", current: false },
+  { name: "Price: High to Low", sort: "discountPrice", order: "desc", current: false },
 ];
 
 function classNames(...classes) {
@@ -105,6 +105,7 @@ export default function ProductList() {
   }, [dispatch]);
   return (
     <>
+      
       {/* {filter} */}
       <div className="bg-white">
         <div>
@@ -345,10 +346,12 @@ function MobileFilter({
 }
 
 function DesktopFilter({ handleFilter, filters }) {
+
   return (
     <div>
       {" "}
       {/* Filters */}
+      
       <form className="hidden lg:block">
         {filters.map((section) => (
           <Disclosure

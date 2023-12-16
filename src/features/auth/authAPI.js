@@ -10,7 +10,7 @@ export function createUser(userData) {
       headers: { "content-Type": "application/json" },
     });
     const data = await response.json();
-    //todo : one server it will return only relevant information
+  
     resolve({ data });
   });
 }
@@ -34,7 +34,7 @@ export function loginUser(loginInfo) {
       reject(error);
     }
 
-    //todo : one server it will return only relevant information
+  
   });
 }
 export function checkAuth() {
@@ -53,7 +53,7 @@ export function checkAuth() {
       reject(error);
     }
 
-    //todo : one server it will return only relevant information
+   
   });
 }
 export function signOut(userId) {
@@ -94,7 +94,7 @@ export function resetPasswordRequest(email) {
       reject(error);
     }
 
-    //todo : one server it will return only relevant information
+   
   });
 }
 export function resetPassword(data) {
@@ -117,6 +117,6 @@ export function resetPassword(data) {
       reject(error);
     }
 
-    //todo : one server it will return only relevant information
+   
   });
 }

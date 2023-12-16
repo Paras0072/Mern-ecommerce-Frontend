@@ -1,5 +1,5 @@
 export function fetchProductById(id) {
-  //Todo : we will not hardcore server url here
+ 
   return new Promise(async (resolve) => {
     const response = await fetch(" /products/" + id);
     const data = await response.json();
@@ -25,14 +25,14 @@ export function updateProduct(update) {
       headers: { "content-Type": "application/json" },
     });
     const data = await response.json();
-    //todo : one server it will return only relevant information
+    
     resolve({ data });
   });
 }
 export function fetchProductsByFilters(filter, sort, pagination, admin) {
   //filter: "category":[ " smartphone ","laptops"]
   // queryString = use after ? for sorting
-  // todo : on server will support multiple values
+  
   // sort ={sort:"price",_order:"desc"}
   // pagination = {page:1,_limit:10}_page=1&-limit=10
   let queryString = "";
@@ -40,8 +40,7 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
   for (let key in filter) {
     const categoryValues = filter[key];
     if (categoryValues.length) {
-      const lastCategoryValue = categoryValues[categoryValues.length - 1];
-      queryString += `${key}=${lastCategoryValue}&`;
+      queryString += `${key}=${categoryValues}&`;
     }
   }
   for (let key in sort) {
@@ -63,7 +62,7 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
 }
 
 export function fetchCategories() {
-  //Todo : we will not hardcore server url here
+ 
   return new Promise(async (resolve) => {
     const response = await fetch(" /categories");
     const data = await response.json();
@@ -71,7 +70,7 @@ export function fetchCategories() {
   });
 }
 export function fetchBrands() {
-  //Todo : we will not hardcore server url here
+  
   return new Promise(async (resolve) => {
     const response = await fetch(" /brands");
     const data = await response.json();
