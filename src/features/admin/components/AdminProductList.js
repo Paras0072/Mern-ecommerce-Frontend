@@ -494,7 +494,7 @@ function ProductGrid({ products }) {
       {/* {this is product list page} */}
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {products.map((product) => (
               <div>
                 <Link to={`/product-detail/${product.id}`}>
@@ -502,7 +502,7 @@ function ProductGrid({ products }) {
                     key={product.id}
                     className="group relative border-solid border-2 p-2 border-gray-200"
                   >
-                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                    <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                       <img
                         src={product.thumbnail}
                         alt={product.title}
@@ -528,28 +528,28 @@ function ProductGrid({ products }) {
                       <div>
                         {" "}
                         <p className="text-sm block font-medium text-gray-900">
-                          $
-                         {product.discountPrice}
+                          ${product.discountPrice}
                         </p>
                         <p className="text-sm block line-through font-medium text-gray-400">
                           ${product.price}
                         </p>
                       </div>
                     </div>
-                   { product.deleted && <div> 
+                    {product.deleted && (
+                      <div>
                         <p className="text-sm text-red-400">Product deleted</p>
-
-                    </div>}
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <div>
                   <div className="mt-5">
-                  <Link
-                    to={`/admin/product-form/edit/${product.id}`}
-                    className="rounded-md my-5 bg-indigo-600 px-3 py-2 text-sm fonr-semibold text-white"
-                  >
-                    Edit Product
-                  </Link>
+                    <Link
+                      to={`/admin/product-form/edit/${product.id}`}
+                      className="rounded-md my-5 bg-indigo-600 px-3 py-2 text-sm fonr-semibold text-white"
+                    >
+                      Edit Product
+                    </Link>
                   </div>
                 </div>
               </div>

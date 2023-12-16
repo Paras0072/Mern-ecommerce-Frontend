@@ -1,6 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedProduct, createProductAsync, fetchProductByIdAsync, selectBrands, selectCategories, selectProductById, updateProductAsync } from "../../product/ProductSlice";
+import {
+  clearSelectedProduct,
+  createProductAsync,
+  fetchProductByIdAsync,
+  selectBrands,
+  selectCategories,
+  selectProductById,
+  updateProductAsync,
+} from "../../product/ProductSlice";
 
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -9,53 +17,87 @@ import Modal from "../../common/Modal";
 import { useAlert } from "react-alert";
 
 function AdminProductForm() {
-   const {
-     register,
-     handleSubmit,
-     setValue,
-     reset,
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
     // formState: { errors },
-   } = useForm();
-  const brands =useSelector(selectBrands);
+  } = useForm();
+  const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
-  const dispatch =useDispatch();
-  const params =useParams();
- const selectedProduct = useSelector(selectProductById);
- const alert = useAlert();
-  useEffect(()=>{
-
-     if(params.id){
-      dispatch(fetchProductByIdAsync(params.id));
-    }else{
-      dispatch(clearSelectedProduct())
-    }
-
-  },[params.id,dispatch])
-  
+  const dispatch = useDispatch();
+  const params = useParams();
+  const selectedProduct = useSelector(selectProductById);
+  const alert = useAlert();
+  const colors = [
+    {
+      name: "White",
+      class: "bg-white",
+      selectedClass: "ring-gray-400",
+      id: "white",
+    },
+    {
+      name: "Gray",
+      class: "bg-gray-200",
+      selectedClass: "ring-gray-400",
+      id: "gray",
+    },
+    {
+      name: "Black",
+      class: "bg-gray-900",
+      selectedClass: "ring-gray-900",
+      id: "black",
+    },
+  ];
+  const sizes = [
+    { name: "XXS", inStock: true, id: "xxs" },
+    { name: "XS", inStock: true, id: "xs" },
+    { name: "S", inStock: true, id: "s" },
+    { name: "M", inStock: true, id: "m" },
+    { name: "L", inStock: true, id: "l" },
+    { name: "XL", inStock: true, id: "xl" },
+    { name: "2XL", inStock: true, id: "2xl" },
+    { name: "3XL", inStock: true, id: "3xl" },
+  ];
   useEffect(() => {
-    if(selectedProduct && params.id){
-   setValue("title", selectedProduct.title);
-   setValue("description", selectedProduct.description);
-   setValue("price", selectedProduct.price);
-  
-   setValue("discountPercentage", selectedProduct.discountPercentage);
-   setValue("thumbnail", selectedProduct.thumbnail);
-   setValue("stock", selectedProduct.stock);
-   setValue("image1", selectedProduct.images[0]);
-    setValue("image2", selectedProduct.images[1]);
-     setValue("image3", selectedProduct.images[2]);
-   setValue("brand", selectedProduct.brand);
-   setValue("category", selectedProduct.category);
-   
+    if (params.id) {
+      dispatch(fetchProductByIdAsync(params.id));
+    } else {
+      dispatch(clearSelectedProduct());
     }
- 
-  }, [selectedProduct,params.id,setValue]);
-   const [openModal, setOpenModal] = useState(null);
-  const handleDelete =()=>{
-          const product = {...selectedProduct};
-          product.deleted = true;
+  }, [params.id, dispatch]);
+
+  useEffect(() => {
+    if (selectedProduct && params.id) {
+      setValue("title", selectedProduct.title);
+      setValue("description", selectedProduct.description);
+      setValue("price", selectedProduct.price);
+      setValue("discountPercentage", selectedProduct.discountPercentage);
+      setValue("thumbnail", selectedProduct.thumbnail);
+      setValue("stock", selectedProduct.stock);
+      setValue("image1", selectedProduct.images[0]);
+      setValue("image2", selectedProduct.images[1]);
+      setValue("image3", selectedProduct.images[2]);
+      setValue("brand", selectedProduct.brand);
+      setValue("category", selectedProduct.category);
+      setValue("highlight1", selectedProduct.highlights[0]);
+      setValue("highlight2", selectedProduct.highlights[1]);
+      setValue("highlight3", selectedProduct.highlights[2]);
+      setValue("highlight4", selectedProduct.highlights[3]);
+      setValue("sizes", selectedProduct.sizes.map(size=>size.id));
+      setValue(
+        "colors",
+        selectedProduct.colors.map((color) => color.id)
+      );
+    }
+  }, [selectedProduct, params.id, setValue]);
+  const [openModal, setOpenModal] = useState(null);
+  const handleDelete = () => {
+    const product = { ...selectedProduct };
+    product.deleted = true;
     dispatch(updateProductAsync(product));
-  }
+  };
   return (
     <>
       <form
@@ -64,7 +106,17 @@ function AdminProductForm() {
           console.log(data);
           const product = { ...data };
           product.images = [product.image1, product.image2, product.image3];
+          product.highlights = [
+            product.highlight1,
+            product.highlight2,
+            product.highlight3,
+            product.highlight4,
+          ];
           product.rating = 0;
+          product.colors = product.colors.map(color => colors.find((clr) => clr.id === color));
+          product.sizes = product.sizes.map(size =>
+            sizes.find((sz) => sz.id === size)
+          );
           delete product["image1"];
           delete product["image2"];
           delete product["image3"];
@@ -75,11 +127,11 @@ function AdminProductForm() {
             product.id = params.id;
             product.rating = selectedProduct.rating || 0;
             dispatch(updateProductAsync(product));
-            alert.success('Product Updated Successfully')
+            alert.success("Product Updated Successfully");
             reset();
           } else {
             dispatch(createProductAsync(product));
-              alert.success("Product Created");
+            alert.success("Product Created");
             reset();
           }
         })}
@@ -91,7 +143,7 @@ function AdminProductForm() {
             </h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-               {selectedProduct && selectedProduct.deleted && (
+              {selectedProduct && selectedProduct.deleted && (
                 <h2 className="text-red-500 sm:col-span-6">
                   This product is deleted
                 </h2>
@@ -154,9 +206,53 @@ function AdminProductForm() {
                   >
                     <option value="">--choose brand--</option>
                     {brands.map((brand) => (
-                      <option value={brand.value}>{brand.label}</option>
+                      <option key={brand.value} value={brand.value}>
+                        {brand.label}
+                      </option>
                     ))}
                   </select>
+                </div>
+              </div>
+              <div className="col-span-full">
+                <label
+                  htmlFor="colors"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Colors
+                </label>
+                <div className="mt-2">
+                  {colors.map((color) => (
+                    <>
+                      <input
+                        type="checkbox"
+                        {...register("colors", {})}
+                        key={color.id}
+                        value={color.id}
+                      />
+                      {color.name}
+                    </>
+                  ))}
+                </div>
+              </div>
+              <div className="col-span-full">
+                <label
+                  htmlFor="sizes"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Sizes
+                </label>
+                <div className="mt-2">
+                  {sizes.map((size) => (
+                    <>
+                      <input
+                        type="checkbox"
+                        {...register("sizes", {})}
+                        key={size.id}
+                        value={size.id}
+                      />
+                      {size.name}
+                    </>
+                  ))}
                 </div>
               </div>
               <div className="col-span-full">
@@ -174,7 +270,9 @@ function AdminProductForm() {
                   >
                     <option value="">--choose category--</option>
                     {categories.map((category) => (
-                      <option value={category.value}>{category.label}</option>
+                      <option key={category.value} value={category.value}>
+                        {category.label}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -325,6 +423,78 @@ function AdminProductForm() {
                   </div>
                 </div>
               </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="highlight1"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Highlight 1
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register("highlight1", {})}
+                      id="highlight1"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="highlight2"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Highlight 2
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register("highlight2", {})}
+                      id="highlight2"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="highlight3"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Highlight 3
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register("highlight3", {})}
+                      id="highlight3"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="highlight4"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Highlight 4
+                </label>
+                <div className="mt-2">
+                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                    <input
+                      type="text"
+                      {...register("highlight4", {})}
+                      id="highlight4"
+                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -416,7 +586,7 @@ function AdminProductForm() {
           >
             Cancel
           </button>
-          {selectedProduct && !selectedProduct.deleted &&(
+          {selectedProduct && !selectedProduct.deleted && (
             <button
               onClick={(e) => {
                 e.preventDefault;
@@ -435,17 +605,18 @@ function AdminProductForm() {
           </button>
         </div>
       </form>
-     {selectedProduct &&  <Modal
-        title={`Delete ${selectedProduct.title}`}
-        // title="Delete the Product"
-        message="Are you sure you want to delete this Product ? "
-        dangerOption="Delete"
-        cancelOption="Cancel"
-        dangerAction={handleDelete}
-        cancelAction={() => setOpenModal(null)}
-        showModal={openModal}
-      ></Modal>
-     }
+      {selectedProduct && (
+        <Modal
+          title={`Delete ${selectedProduct.title}`}
+          // title="Delete the Product"
+          message="Are you sure you want to delete this Product ? "
+          dangerOption="Delete"
+          cancelOption="Cancel"
+          dangerAction={handleDelete}
+          cancelAction={() => setOpenModal(null)}
+          showModal={openModal}
+        ></Modal>
+      )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import  { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectItems,
@@ -15,15 +15,16 @@ import { Grid } from "react-loader-spinner";
 import Modal from "../common/Modal";
 export default function Cart() {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(true);
+ // const [open, setOpen] = useState(true);
   const items = useSelector(selectItems);
+   const status = useSelector(selectCartStatus);
   const cartLoaded = useSelector(selectCartLoaded);
   const [openModal, setOpenModal] = useState(null);
   const totalAmount = items.reduce(
     (amount, item) => item.product.discountPrice * item.quantity + amount,
     0
   );
-  const status = useSelector(selectCartStatus);
+ 
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const handleQuantity = (e, item) => {
     dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
@@ -33,8 +34,7 @@ export default function Cart() {
   };
   return (
     <>
-      {" "}
-      {!items.length && cartLoaded && (
+        {!items.length && cartLoaded && (
         <Navigate to="/" replace={true}></Navigate>
       )}
       <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -109,7 +109,7 @@ export default function Cart() {
                           showModal={openModal === item.id}
                         ></Modal>
                         <button
-                          onClick={() => {
+                          onClick={(e) => {
                             setOpenModal(item.id);
                           }}
                           type="button"
@@ -152,7 +152,7 @@ export default function Cart() {
                 <button
                   type="button"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() => setOpen(false)}
+                 // onClick={() => setOpen(false)}
                 >
                   Continue Shopping
                   <span aria-hidden="true"> &rarr;</span>
