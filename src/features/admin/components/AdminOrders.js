@@ -97,7 +97,7 @@ useEffect(() => {
                     </th>
                     <th className="py-3 px-0 text-left">Items</th>
                     <th
-                      className="py-3 px-6 text-left cursor-pointer"
+                      className="py-3 px-0 text-left cursor-pointer"
                       onClick={(e) =>
                         handleSort({
                           sort: "totalAmount",
@@ -113,12 +113,12 @@ useEffect(() => {
                           <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
                         ))}
                     </th>
-                    <th className="py-3 px-0 text-center">Shipping address</th>
+                    <th className="py-3 px-0 text-center">Shipping Address</th>
                     <th className="py-3 px-0 text-center">Order Status</th>
                     <th className="py-3 px-0 text-center">Payment Method</th>
                     <th className="py-3 px-0 text-center">Payment Status</th>
                     <th
-                      className="py-3 px-6 text-left cursor-pointer"
+                      className="py-3 px-0 text-left cursor-pointer"
                       onClick={(e) =>
                         handleSort({
                           sort: "createdAt",
@@ -135,7 +135,7 @@ useEffect(() => {
                         ))}
                     </th>
                     <th
-                      className="py-3 px-6 text-left cursor-pointer"
+                      className="py-3 px-0 text-left cursor-pointer"
                       onClick={(e) =>
                         handleSort({
                           sort: "updatedAt",
@@ -143,7 +143,7 @@ useEffect(() => {
                         })
                       }
                     >
-                     Last Updated{" "}
+                      Last Updated{" "}
                       {sort._sort === "updatedAt" &&
                         (sort._order === "asc" ? (
                           <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>

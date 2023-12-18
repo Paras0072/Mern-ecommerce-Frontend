@@ -35,11 +35,9 @@ export function deleteItemFromCart(itemId) {
   return new Promise(async (resolve) => {
     const response = await fetch("/cart/" + itemId, {
       method: "DELETE",
-
-      headers: { "content-Type": "application/json" },
+      headers: { "content-type": "application/json" },
     });
     const data = await response.json();
-   
     resolve({ data: { id: itemId } });
   });
 }
