@@ -1,3 +1,41 @@
+MERN Stack E-commerce Project - Frontend Repository
+
+MERN E-Commerce  with Admin Panel, Redux Toolkit, Stripe Payment, Cloud Deployment, Email Invoice, and many features (complete features given below in Description )
+
+🔥 Code Repositories:
+
+React [frontend] -https://github.com/Paras0072/Mern-ecommerce-Frontend
+
+Node [backend] - https://github.com/Paras0072/MERN-ecommerce-backend
+
+🔥 Features :
+
+ 1. Basic E-commerce Features- Product lists, Product Details, Cart, Checkout
+ 2. Secure Card Payments / Cash payments
+ 3. Admin Panel - Add/Edit Orders. Add/Edit Products
+ 4. Sorting, Filtering, and Pagination queries using Mongoose
+ 5. Authentication with Passport JS strategies
+ 6. Order Emails, Reset Password Emails
+ 7. User Profile and user orders
+
+🔥 Technical Details :
+
+ 1. React 18 with Tailwind CSS
+ 2. Redux Toolkit with Async Thunk
+ 3. React Router v6
+ 4. JSON-server for front-end testing
+ 5. Authentication with Passport JS strategies
+ 6. MongoDB for Database
+ 7. Mongoose v7 as ODM
+ 8. REST API using Express
+ 9. Authentication using Passport JS
+ 10. API Authentication using Passport JWT
+ 11. MongoDB Atlas cloud database
+ 12. Vercel Server deployment
+ 13. Email using Nodemailer - using GMail SMTP system
+ 14. Payments using Stripe - PaymentIntent based custom flow
+
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
